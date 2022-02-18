@@ -36,11 +36,12 @@ stages:
               archiveFile: "$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip"
               replaceExistingArchive: true
 
+          # - task: PublishBuildArtifacts@1
+          #   inputs:
+          #     PathtoPublish: "$(Build.ArtifactStagingDirectory)"
+          #     ArtifactName: "drop"
+          #     publishLocation: "Container"
           - task: PublishBuildArtifacts@1
-            inputs:
-              PathtoPublish: "$(Build.ArtifactStagingDirectory)"
-              ArtifactName: "drop"
-              publishLocation: "Container"
 
 
   - stage: "Dev"
@@ -57,8 +58,9 @@ stages:
           runOnce:
             deploy:
               steps:
-                - download: current
-                  artifact: drop
+                # - download: current
+                #   artifact: drop
+                - task: DownloadBuildArtifacts@0
                 - task: AzureWebApp@1
                   displayName: "Azure App Service Deploy: website"
                   inputs:
