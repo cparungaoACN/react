@@ -60,6 +60,9 @@ stages:
               steps:
                 - download: current
                   artifact: drop
+                  
+                - script: |
+                    echo $(Pipeline.Workspace)
                 - task: AzureWebApp@1
                   displayName: "Azure App Service Deploy: website"
                   inputs:
