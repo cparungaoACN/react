@@ -69,7 +69,7 @@ stages:
                     azureSubscription: "Devops - Demo"
                     appType: 'webApp'
                     appName: "$(WebAppNameDev)"
-                    package: "$(Pipeline.Workspace)/drop/*.zip"
+                    package: "$(Pipeline.Workspace)/drop/**.zip"
 
 
 
