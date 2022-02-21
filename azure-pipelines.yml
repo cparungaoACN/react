@@ -26,6 +26,7 @@ stages:
           - script: |
               npm install
               npm run build
+              echo $PWD
             displayName: "npm install and build"
 
           - task: ArchiveFiles@2
