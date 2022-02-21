@@ -50,7 +50,7 @@ stages:
     jobs:
       - deployment: Deploy
         pool:
-          vmImage: "ubuntu-20.04"
+          vmImage: ubuntu-latest
         environment: dev
         variables:
           - group: Release
@@ -59,17 +59,25 @@ stages:
             deploy:
               steps:
                 - download: current
-                  artifact: drop
-                  
-                - script: |
-                    echo $(Pipeline.Workspace)
-                - task: AzureWebApp@1
-                  displayName: "Azure App Service Deploy: website"
+                  artifact: drop                  
+                
+                # - task: AzureWebApp@1
+                #   displayName: "Azure App Service Deploy: website"
+                #   inputs:
+                #     azureSubscription: "Devops - Demo"
+                #     appType: 'webApp'
+                #     appName: "$(WebAppNameDev)"
+                #     package: "$(Pipeline.Workspace)/drop/**.zip"
+
+                - task: AzureRmWebAppDeployment@4
                   inputs:
-                    azureSubscription: "Devops - Demo"
-                    appType: 'webApp'
-                    appName: "$(WebAppNameDev)"
-                    package: "$(Pipeline.Workspace)/drop/**.zip"
+                    ConnectionType: 'AzureRM'
+                    azureSubscription: 'Visual Studio Professional Subscription(3db749bc-0ec4-46c9-8d6c-057df87c6e17)'
+                    appType: 'webAppLinux'
+                    WebAppName: 'DevOpsDemo-dev-00-app'
+                    packageForLinux: '$(Pipeline.Workspace)/drop/*.zip'
+                    RuntimeStack: 'NODE|16-lts'
+                
 
 
 
