@@ -1,9 +1,14 @@
-import logo from "./logo.svg";
 import "./App.css";
 import Demo from "./components/Demo";
 
 function App() {
-  return <Demo />;
+  return (
+    <div className="App">
+      <header className="App-header">
+        <Demo />
+      </header>
+    </div>
+  );
 }
 
 export default App;
