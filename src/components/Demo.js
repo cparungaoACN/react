@@ -8,7 +8,7 @@ function Demo() {
     <Container className="Demo">
       <div className="p-5 mb-4 rounded-3">
         <div className="container-fluid py-5">
-          <h1 className="display-5 fw-bold">Demo</h1>
+          <h1 className="display-5 fw-bold">Demooo</h1>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc nisi
             ligula, rhoncus sit amet facilisis eu, scelerisque eget metus. Donec
