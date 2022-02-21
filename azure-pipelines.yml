@@ -69,14 +69,33 @@ stages:
                     appName: "$(WebAppNameDev)"
                     package: "$(Pipeline.Workspace)/drop/*.zip"
 
-                # - task: AzureRmWebAppDeployment@4
-                #   inputs:
-                #     ConnectionType: 'AzureRM'
-                #     azureSubscription: 'Visual Studio Professional Subscription(3db749bc-0ec4-46c9-8d6c-057df87c6e17)'
-                #     appType: 'webAppLinux'
-                #     WebAppName: 'DevOpsDemo-dev-00-app'
-                #     packageForLinux: '$(Pipeline.Workspace)/drop/*.zip'
-                #     RuntimeStack: 'NODE|16-lts'
+
+  - stage: "Prod"
+    displayName: "Deploy to the production environment"
+    dependsOn: Dev
+    jobs:
+      - deployment: Deploy
+        pool:
+          vmImage: ubuntu-latest
+        environment: prod
+        variables:
+          - group: Release
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - download: current
+                  artifact: drop                  
+                
+                - task: AzureWebApp@1
+                  displayName: "Azure App Service Deploy: website"
+                  inputs:
+                    azureSubscription: "Devops - Demo"
+                    appType: 'webApp'
+                    appName: "$(WebAppNameProd)"
+                    package: "$(Pipeline.Workspace)/drop/*.zip"
+
+
                 
 
 
